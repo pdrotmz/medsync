@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: medsync
+  profiles:
+    active: test
