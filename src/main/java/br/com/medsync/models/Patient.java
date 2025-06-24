@@ -7,7 +7,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
-@Entity(name = "patient")
+@Entity
 @Table(name = "tb_patient")
 @Data
 public class Patient extends User {
@@ -17,4 +17,7 @@ public class Patient extends User {
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    @Column(name = "age", updatable = true, nullable = false)
+    private int age;
 }
