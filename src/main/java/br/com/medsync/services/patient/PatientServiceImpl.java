@@ -1,11 +1,15 @@
 package br.com.medsync.services.patient;
 
-import br.com.medsync.dto.PatientRequestDTO;
-import br.com.medsync.dto.PatientResponseDTO;
+import br.com.medsync.dto.patient.PatientRequestDTO;
+import br.com.medsync.dto.patient.PatientResponseDTO;
+import br.com.medsync.dto.patient.RequestPasswordDTO;
+import br.com.medsync.dto.patient.ResponsePasswordDTO;
 import br.com.medsync.models.Patient;
 import br.com.medsync.repositories.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -69,14 +73,52 @@ public class PatientServiceImpl implements PatientService {
         return patients;
     }
 
-    // TODO: Implementar as outras funções
-    @Override
-    public void updatePatientById(Patient patient, String id) {
 
+    @Override
+    @Modifying
+    @Transactional
+    public PatientResponseDTO updatePatientById(Patient updatedData, String id) {
+        Patient existing = patientRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Paciente com id " + id + " não encontrado!"));
+
+        existing.setUsername(updatedData.getUsername());
+        existing.setName(updatedData.getName());
+        existing.setEmail(updatedData.getEmail());
+        existing.setCpf(updatedData.getCpf());
+        existing.setBirthDate(updatedData.getBirthDate());
+
+        Patient savedPatient = patientRepository.save(existing);
+
+        return new PatientResponseDTO(
+                savedPatient.getId(),
+                savedPatient.getCpf(),
+                savedPatient.getUsername(),
+                savedPatient.getName(),
+                savedPatient.getBirthDate(),
+                savedPatient.getEmail(),
+                savedPatient.getPassword()
+        );
     }
 
     @Override
-    public void deletePatientById(String id) {
+    public ResponsePasswordDTO updatedPatientPassword(RequestPasswordDTO request, String email) {
+        Patient existing = patientRepository.findPatientByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Paciente com email " + email + " não encontrado!"));
 
+        existing.setPassword(request.password());
+
+        patientRepository.save(existing);
+
+        return new ResponsePasswordDTO(
+                "Senha atualizada com sucesso!"
+        );
+    }
+
+
+    @Override
+    @Modifying
+    @Transactional
+    public void deletePatientById(String id) {
+       patientRepository.deleteById(id);
     }
 }

@@ -1,4 +1,4 @@
-package br.com.medsync.dto;
+package br.com.medsync.dto.patient;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

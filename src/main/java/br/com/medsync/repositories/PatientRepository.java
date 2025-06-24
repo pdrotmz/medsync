@@ -1,7 +1,6 @@
 package br.com.medsync.repositories;
 
 import br.com.medsync.models.Patient;
-import br.com.medsync.projection.patient.DefaultDataPatient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
