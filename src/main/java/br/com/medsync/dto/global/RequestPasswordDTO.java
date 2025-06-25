@@ -1,4 +1,4 @@
-package br.com.medsync.dto.patient;
+package br.com.medsync.dto.global;
 
 public record RequestPasswordDTO(
         String password

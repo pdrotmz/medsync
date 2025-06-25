@@ -2,8 +2,8 @@ package br.com.medsync.services.patient;
 
 import br.com.medsync.dto.patient.PatientRequestDTO;
 import br.com.medsync.dto.patient.PatientResponseDTO;
-import br.com.medsync.dto.patient.RequestPasswordDTO;
-import br.com.medsync.dto.patient.ResponsePasswordDTO;
+import br.com.medsync.dto.global.RequestPasswordDTO;
+import br.com.medsync.dto.global.ResponsePasswordDTO;
 import br.com.medsync.models.Patient;
 
 import java.time.LocalDate;

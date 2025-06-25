@@ -1,9 +1,9 @@
-package br.com.medsync.controller;
+package br.com.medsync.controller.patient;
 
 import br.com.medsync.dto.patient.PatientRequestDTO;
 import br.com.medsync.dto.patient.PatientResponseDTO;
-import br.com.medsync.dto.patient.RequestPasswordDTO;
-import br.com.medsync.dto.patient.ResponsePasswordDTO;
+import br.com.medsync.dto.global.RequestPasswordDTO;
+import br.com.medsync.dto.global.ResponsePasswordDTO;
 import br.com.medsync.models.Patient;
 import br.com.medsync.services.patient.PatientServiceImpl;
 import jakarta.validation.Valid;
@@ -23,7 +23,7 @@ public class PatientController {
     @Autowired
     private PatientServiceImpl patientService;
 
-    @PostMapping("/register")
+    @PostMapping("/register/patient")
     public ResponseEntity<PatientResponseDTO> registerPatient(@RequestBody @Valid PatientRequestDTO request) {
         PatientResponseDTO response = patientService.registerPatient(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -64,7 +64,7 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
     }
 
-    @PutMapping("/update-password/email/{email}")
+    @PutMapping("/recover-password/email/{email}")
     public ResponseEntity<ResponsePasswordDTO> updatePatientPassword(@RequestBody @Valid RequestPasswordDTO request,
                                                                     @PathVariable String email) {
 
